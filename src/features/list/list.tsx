@@ -16,7 +16,7 @@ export const ListScreen = () => {
       <Stack.Screen
         name="ListStackScreen"
         component={ListStackScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, headerTitle: "Pokemon List" }}
       />
       <Stack.Screen
         name="Details"

@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { PokemonDetails, PokemonListItem } from "../../../../models/models";
+import { PokemonListItem } from "../../../../models/models";
 import { usePokemonItem } from "./use-pokemon-item";
 import { Image } from "expo-image";
 import { RootStackParamList } from "../../list";
@@ -27,7 +27,7 @@ export const PokemonItem = ({ item }: Props) => {
           uri: pokemon?.imgSrc,
         }}
       />
-      <Text>{pokemon?.name}</Text>
+      <Text>{item.name}</Text>
     </TouchableOpacity>
   );
 };
