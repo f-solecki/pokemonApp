@@ -1,15 +1,14 @@
 import Icon from "react-native-vector-icons/FontAwesome";
-
 import {
   createBottomTabNavigator,
   BottomTabBarProps,
 } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 
 import { FavouriteScreen } from "./src/features/favourite/favourite";
 import { ListScreen } from "./src/features/list/list";
 import { MapScreen } from "./src/features/map/map";
-import Toast from "react-native-toast-message";
 
 export type RootTabParamList = {
   addListener: any;

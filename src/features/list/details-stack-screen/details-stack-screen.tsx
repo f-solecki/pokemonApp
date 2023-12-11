@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Image } from "expo-image";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRoute } from "@react-navigation/native";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 
 import { PokemonDetails } from "../../../models/models";
 import { showToast } from "../../../common/toast";
@@ -18,12 +18,24 @@ export const DetailsStackScreen = () => {
 
   const [favouritePokemon, setFavouritePokemon] = useState<PokemonDetails>();
 
-  const addToFavourites = async () => {
+  const getFavouritePokemon = async () => {
     try {
       const value = await AsyncStorage.getItem("favPokemon");
       if (value !== null) {
         setFavouritePokemon(JSON.parse(value));
+      }
+    } catch (e) {
+      console.error("Cannot read favourites from AsyncStorage");
+    }
+  };
 
+  useFocusEffect(() => {
+    getFavouritePokemon();
+  });
+
+  const addToFavourites = async () => {
+    try {
+      if (favouritePokemon) {
         showToast({
           title: "Favourite already chosen",
           description: "You can only have one favourite pokemon",
@@ -59,7 +71,7 @@ export const DetailsStackScreen = () => {
       setFavouritePokemon(undefined);
     }
   };
-
+  console.log(pokemon, favouritePokemon);
   return (
     <View>
       <View style={styles.header}>
@@ -74,6 +86,7 @@ export const DetailsStackScreen = () => {
         >
           <Icon
             name={favouritePokemon?.name === pokemon.name ? "heart" : "heart-o"}
+            size={30}
             style={styles.favouriteImage}
           />
         </TouchableOpacity>

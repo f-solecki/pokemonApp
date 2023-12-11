@@ -13,18 +13,16 @@ export const useListStackScreen = () => {
 
   const getPokemonList = async () => {
     setLoading(true);
-    console.log(next);
 
     try {
       const response = await fetch(next);
       const json = await response.json();
       setNext(json.next);
-      setList(json.results);
+      setList([...list, ...json.results]);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
-      ref.current?.scrollToIndex({ index: 0 });
     }
   };
 

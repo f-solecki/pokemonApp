@@ -1,23 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { PokemonDetails } from "../../models/models";
-import { Image } from "expo-image";
 import {
   GestureHandlerRootView,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { RootTabParamList } from "../../../App";
-import { showToast } from "../../common/toast";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Image } from "expo-image";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-type Props = {
-  navigation: RootTabParamList;
-};
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
-export const FavouriteScreen = ({ navigation }: Props) => {
+import { showToast } from "../../common/toast";
+import { PokemonDetails } from "../../models/models";
+
+export const FavouriteScreen = () => {
   const [pokemon, setPokemon] = useState<PokemonDetails>();
 
   const readFavourites = async () => {
@@ -31,13 +29,9 @@ export const FavouriteScreen = ({ navigation }: Props) => {
     }
   };
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      readFavourites();
-    });
-
-    return unsubscribe;
-  }, [navigation]);
+  useFocusEffect(() => {
+    readFavourites();
+  });
 
   const removeFromFavourites = async () => {
     try {
@@ -64,10 +58,7 @@ export const FavouriteScreen = ({ navigation }: Props) => {
               <Text style={styles.headerText}>{pokemon?.name}</Text>
 
               <TouchableOpacity onPress={removeFromFavourites}>
-                <Icon
-                  name="heart"
-                  style={styles.favouriteImage}
-                />
+                <Icon name="heart" size={30} style={styles.favouriteImage} />
               </TouchableOpacity>
             </View>
             <Image
