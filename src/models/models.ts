@@ -12,3 +12,16 @@ export type ToastProps = {
   description: string;
   type: "success" | "error" | "warning" | "info";
 };
+
+export type GetListProps = {
+  url: string;
+};
+
+export type Marker = {
+  title: string;
+  description: string;
+  coordinate: {
+    latitude: number;
+    longitude: number;
+  };
+};
